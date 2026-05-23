@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import warnings
 
-warnings.filterwarnings('ignore')  # Konsolun temiz görünmesi için uyarıları gizler
+warnings.filterwarnings('ignore')
 
 
 def load_data():
@@ -15,7 +15,7 @@ def load_data():
 
 
 def analyze_data(df):
-    """Veri seti hakkında kısa analiz raporu sunar. (Bölüm 8 Beklentisi)"""
+    """Veri seti hakkında kısa analiz raporu sunar"""
     print("\n" + "=" * 40)
     print("📊 VERİ SETİ ANALİZ RAPORU")
     print("=" * 40)
@@ -36,11 +36,11 @@ def create_matrices(df):
     # 1. Kullanıcı - İçerik Matrisi
     user_item_matrix = df.pivot_table(index='user_id', columns='title', values='rating').fillna(0)
 
-    # 2. Kullanıcı Benzerlik Matrisi (User-Based için)
+    # 2. Kullanıcı - Benzerlik Matrisi (User-Based için)
     user_sim_matrix = cosine_similarity(user_item_matrix)
     user_sim_df = pd.DataFrame(user_sim_matrix, index=user_item_matrix.index, columns=user_item_matrix.index)
 
-    # 3. İçerik Benzerlik Matrisi (Item-Based için - Bonus)
+    # 3. İçerik - Benzerlik Matrisi (Item-Based için)
     item_sim_matrix = cosine_similarity(user_item_matrix.T)
     item_sim_df = pd.DataFrame(item_sim_matrix, index=user_item_matrix.columns, columns=user_item_matrix.columns)
 
@@ -73,7 +73,7 @@ def get_recommendations(target_user, user_item_matrix, sim_df, df, method="user"
                 recommendations[item] = toplam_skor / benzerlik_toplami
 
     elif method == "item":
-        # ITEM-BASED YAKLAŞIMI (Bonus Geliştirme)
+        # ITEM-BASED YAKLAŞIMI
         for unrated_item in unrated_items:
             toplam_skor, benzerlik_toplami = 0, 0
             for rated_item, rating in rated_items.items():
@@ -84,7 +84,7 @@ def get_recommendations(target_user, user_item_matrix, sim_df, df, method="user"
             if benzerlik_toplami > 0:
                 recommendations[item] = toplam_skor / benzerlik_toplami
 
-    # Filtreleme İşlemleri (Bonus Geliştirme)
+    # Filtreleme İşlemleri
     filtered_recs = {}
     for title, score in recommendations.items():
         item_info = df[df['title'] == title].iloc[0]
@@ -96,10 +96,10 @@ def get_recommendations(target_user, user_item_matrix, sim_df, df, method="user"
             continue
         filtered_recs[title] = score
 
-    # Skora göre sıralama
+    # Skora Göre Sıralama
     sorted_recs = sorted(filtered_recs.items(), key=lambda x: x[1], reverse=True)[:top_n]
 
-    # İstenen Tablo Formatına Dönüştürme (Bölüm 8.1 Beklentisi)
+    # Tablo Formatına Dönüştürme
     result = []
     for rank, (title, score) in enumerate(sorted_recs, start=1):
         item_info = df[df['title'] == title].iloc[0]
@@ -114,7 +114,7 @@ def get_recommendations(target_user, user_item_matrix, sim_df, df, method="user"
 
 
 def interactive_menu():
-    """Kullanıcı etkileşimli terminal arayüzü (Bonus Geliştirme)"""
+    """Kullanıcı etkileşimli terminal arayüzü"""
     print("Veriler yükleniyor...")
     try:
         df = load_data()
