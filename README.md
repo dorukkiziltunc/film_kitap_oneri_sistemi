@@ -9,7 +9,7 @@ Bu projede istenen hedeflere ulaşılmış ve iki farklı yaklaşım aynı siste
 1. **User-Based Collaborative Filtering:** Hedef kullanıcı ile diğer kullanıcılar arasındaki Cosine Similarity (Kosinüs Benzerliği) hesaplanarak zevk ikizleri bulunur.
 2. **Item-Based Collaborative Filtering:** Kullanıcıların tercih ettiği içerikler ile diğer içerikler arasındaki benzerlik matrisi kurularak, içeriğe dayalı öneri sunulur.
 
-## 🎯 Gerçekleştirilen İsterler ve Bonus Geliştirmeler
+## 🎯 Gerçekleştirilen Başarımlar
 - [x] Veri seti analiz raporu fonksiyonu eklendi (Kullanıcı/İçerik sayısı, Ort. Puan vb.).
 - [x] Konsol tabanlı etkileşimli kullanıcı arayüzü (Terminal Menü) tasarlandı.
 - [x] Kullanıcıdan çalışma anında dinamik olarak `user_id` girişi alındı.
